@@ -95,8 +95,8 @@
     "@types/sinon": "^7.5.2",
     "@types/url-parse": "^1.4.3",
     "@types/uuid": "^7.0.2",
-    "@typescript-eslint/eslint-plugin": "^2.23.0",
-    "@typescript-eslint/parser": "^2.23.0",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "@typescript-eslint/parser": "^2.24.0",
     "autoprefixer": "^9.7.4",
     "babel-eslint": "^10.1.0",
     "broccoli-asset-rev": "^3.0.0",
@@ -114,7 +114,7 @@
     "ember-autostash-modifier": "^0.1.1",
     "ember-cli": "^3.17.0",
     "ember-cli-app-version": "^3.2.0",
-    "ember-cli-babel": "7.18.0",
+    "ember-cli-babel": "github:jamescdavis/ember-cli-babel#update-babel",
     "ember-cli-clipboard": "github:NullVoxPopuli/ember-cli-clipboard#octaneify",
     "ember-cli-code-coverage": "github:kategengler/ember-cli-code-coverage",
     "ember-cli-dependency-checker": "^3.2.0",
@@ -124,7 +124,7 @@
     "ember-cli-page-object": "^1.16.2",
     "ember-cli-postcss": "^5.0.0",
     "ember-cli-sri": "^2.1.1",
-    "ember-cli-typescript": "^3.1.3",
+    "ember-cli-typescript": "^4.0.0-alpha.1",
     "ember-cli-uglify": "^3.0.0",
     "ember-computed-promise-monitor": "^0.4.0",
     "ember-concurrency": "1.1.6",
@@ -189,7 +189,7 @@
     "testem-gitlab-reporter": "^1.0.0",
     "testem-multi-reporter": "^1.2.0",
     "ts-node": "^8.8.1",
-    "typescript": "3.7.5"
+    "typescript": "~3.7.0"
   },
   "engines": {
     "node": ">= 10.*"
