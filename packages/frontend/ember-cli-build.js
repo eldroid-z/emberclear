@@ -77,10 +77,7 @@ module.exports = function(defaults) {
   });
 
   // Additional paths to copy to the public directory in the final build.
-  let additionalTrees = [
-    ...buildStaticTrees(env),
-    ...buildWorkerTrees(env)
-];
+  let additionalTrees = [...buildStaticTrees(env), ...buildWorkerTrees(env)];
 
   if (!isProduction) {
     app.trees.public = new UnwatchedDir('public');
