@@ -14,7 +14,11 @@ const { buildWorkerTrees } = require('./config/build/workers');
 const crypto = require('crypto');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
-const { EMBROIDER, CONCAT_STATS } = process.env;
+let { EMBROIDER, CONCAT_STATS } = process.env;
+
+if (EMBROIDER !== 'true') {
+  EMBROIDER = true;
+}
 
 module.exports = function (defaults) {
   let environment = EmberApp.env();
@@ -126,6 +130,32 @@ module.exports = function (defaults) {
       // staticComponents: true,
       // splitAtRoutes: true,
       // skipBabel: [],
+      packageRules: [
+        {
+          package: 'ember-intl',
+          semverRange: '^4.3.2',
+          addonModules: {
+            'services/intl.js': {
+              dependsOnModules: ['../adapters/default.js']
+            }
+          }
+        },
+        // {
+        //   package: 'ember-destroyable-polyfill',
+        //   semverRange: '^0.4.0',
+        //   addonModules: {
+        //     '-internal/patch-meta':{
+        //       dependsO
+        //     }
+        //   }
+        // }
+      ],
+      compatAdapters: new Map([
+        ['@ember-data/debug', null],
+        ['@ember-data/model', null],
+        ['@ember-data/store', null],
+        ['@ember-data/record-data', null],
+      ]),
     });
   }
 
