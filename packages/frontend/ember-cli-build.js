@@ -124,10 +124,10 @@ module.exports = function (defaults) {
 
     return compatBuild(app, Webpack, {
       extraPublicTrees: additionalTrees,
-      // staticAddonTestSupportTrees: true,
-      // staticAddonTrees: true,
-      // staticHelpers: true,
-      // staticComponents: true,
+      staticAddonTestSupportTrees: true,
+      staticAddonTrees: true,
+      staticHelpers: true,
+      staticComponents: true,
       // splitAtRoutes: true,
       // skipBabel: [],
       packageRules: [
@@ -140,6 +140,15 @@ module.exports = function (defaults) {
             }
           }
         },
+        {
+          package: 'ember-cli-clipboard',
+          appModules: {
+            'components/copy-text-button': {
+              dependsOnComponents: ['<CopyButton/>']
+            }
+          },
+          components: '{{copy-button}}'
+        }
         // {
         //   package: 'ember-destroyable-polyfill',
         //   semverRange: '^0.4.0',
@@ -151,10 +160,11 @@ module.exports = function (defaults) {
         // }
       ],
       compatAdapters: new Map([
-        ['@ember-data/debug', null],
-        ['@ember-data/model', null],
-        ['@ember-data/store', null],
-        ['@ember-data/record-data', null],
+        ['@ember-data/model', EmberDataCompatAdapter],
+        ['@ember-data/model', EmberDataCompatAdapter],
+        ['@ember-data/store', EmberDataCompatAdapter],
+        ['@ember-data/record-data', EmberDataCompatAdapter],
+        ['ember-destroyable-polyfill', EmberDestroyableCompatAdapter],
       ]),
     });
   }
@@ -162,3 +172,22 @@ module.exports = function (defaults) {
   // Old-style broccoli-build
   return mergeTrees([app.toTree(), ...additionalTrees]);
 };
+
+const { V1Addon } = require('@embroider/compat');
+const { forceIncludeModule } = require('@embroider/compat/src/compat-utils');
+
+class EmberDataCompatAdapter extends V1Addon {
+  get packageMeta() {
+    return forceIncludeModule(super.packageMeta, './-private');
+  }
+}
+
+class EmberDestroyableCompatAdapter extends V1Addon {
+  get packageMeta() {
+    let meta = super.packageMeta;
+    meta = forceIncludeModule(meta, './-internal/patch-core-object');
+    meta = forceIncludeModule(meta, './-internal/patch-meta');
+
+    return meta;
+  }
+}
