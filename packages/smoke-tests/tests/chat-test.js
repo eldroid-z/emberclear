@@ -15,6 +15,23 @@ const AddFriend = require('../page-objects/add-friend');
 const Chat = require('../page-objects/chat');
 const Setup = require('../page-objects/setup');
 
+const globalIt = it;
+const it = async (name, callback) => {
+  try {
+    return await globalIt(name, callback);
+  } catch (e) {
+    console.error(e);
+
+    for (let browser of this.browsers) {
+      console.log(`--------------- BROWSER DEBUG -------------------`);
+      console.log(await browser.getTitle());
+      console.log(await browser.getText());
+    }
+
+    throw e;
+  }
+}
+
 describe('chat', function () {
   setUpWebDriver.call(this);
   setupEndpoint.call(this);
