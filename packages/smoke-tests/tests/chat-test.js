@@ -15,7 +15,7 @@ const AddFriend = require('../page-objects/add-friend');
 const Chat = require('../page-objects/chat');
 const Setup = require('../page-objects/setup');
 
-const globalIt = it;
+const globalIt = global.it;
 const it = async (name, callback) => {
   try {
     return await globalIt(name, callback);
